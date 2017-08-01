@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Vector;
-
 import processing.core.PApplet;
 import processing.core.PVector;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class G extends PApplet {
 	public static G gf;
@@ -38,7 +36,7 @@ public class G extends PApplet {
 						car.getLocation().y > monster.getLocation().y &&
 						car.getLocation().x < monster.getLocation().x + monster.getWidth() &&
 						car.getLocation().y < monster.getLocation().y + monster.getHeight()) {
-					monsters = new LinkedList<Monster>();
+					monsters = new ArrayList<>();
 					round = 1;
 				}
 			}
@@ -66,15 +64,13 @@ public class G extends PApplet {
 	
 	@Override
 	public synchronized void mouseClicked() {
-		for(Iterator<Monster> iterator = monsters.iterator(); iterator.hasNext();) {
-			Monster monster = iterator.next();
-			if(mouseX > monster.getLocation().x && 
-					mouseY > monster.getLocation().y &&
-					mouseX < monster.getLocation().x + monster.getWidth() &&
-					mouseY < monster.getLocation().y + monster.getHeight()  + 100) {
-				iterator.remove();
-			}
-		}
+        System.out.println("clicking: " + mouseX + ", " + mouseY);
+        System.out.println("monsters are : " + String.join(" ", monsters.stream().map(x -> x.toString()).collect(
+                Collectors.toList())));
+        monsters.removeIf(monster -> mouseX > monster.getLocation().x &&
+                mouseY > monster.getLocation().y &&
+                mouseX < monster.getLocation().x + monster.getWidth() &&
+                mouseY < monster.getLocation().y + monster.getHeight() + 100);
 	}
 
 

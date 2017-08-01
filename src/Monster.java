@@ -8,6 +8,7 @@ public class Monster extends Matter {
 	{
 		setMass(1f);
 	}
+
 	public Monster() {}
 	public Monster(PVector location) {
 		setLocation(location);
@@ -17,6 +18,11 @@ public class Monster extends Matter {
 
 	public void display() {
 		G.gf.image(img, getLocation().x, getLocation().y);
+        G.gf.stroke(0);
+        G.gf.fill(175);
+        G.gf.pushMatrix();
+		G.gf.rect(getLocation().x, getLocation().y, 50, 50);
+		G.gf.popMatrix();
 	}
 	
 	@Override
@@ -42,9 +48,14 @@ public class Monster extends Matter {
 	
 	
 	public int getWidth() {
-		return img.width;
+		return 200;
 	}
 	public int getHeight() {
-		return img.height;
+		return 200;
 	}
+
+    @Override
+    public String toString() {
+        return getLocation().toString();
+    }
 }
